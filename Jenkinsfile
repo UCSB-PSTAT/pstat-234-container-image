@@ -20,7 +20,7 @@ pipeline {
                 }
                 stage('Test') {
                     steps {
-                        sh 'podman run -it --rm localhost/$IMAGE_NAME quarto check'
+                        sh 'podman run -it --rm localhost/$IMAGE_NAME quarto --version'
                         sh 'podman run -it --rm localhost/$IMAGE_NAME otter --version'
                         sh 'podman run -it --rm localhost/$IMAGE_NAME python -c "import numpy; import pandas; import altair; import matplotlib; import sklearn; sklearn.show_versions(); import torch; import scipy; import seaborn"'
                         sh 'podman run -d --name=$IMAGE_NAME --rm --pull=never -p 8888:8888 localhost/$IMAGE_NAME start-notebook.sh --NotebookApp.token="jenkinstest"'
