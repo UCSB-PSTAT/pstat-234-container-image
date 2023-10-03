@@ -1,9 +1,4 @@
-# Container image source for <course>
-Info here about where to find and run this image.
+# Container image source for PSTAT 234
+You can find this image on docker hub and obtaining it by running `podman pull dockerhub.io/ucsb/pstat234`
 
-# Template instructions (**DELETE THIS SECTION**)
-
-* Uncomment and add necessary libraries to Containerfile
-* mv Jenkinsfile.template to Jenkinsfile
-* Update image variable and add tests to Jenkinsfile
 
