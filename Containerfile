@@ -5,7 +5,7 @@ MAINTAINER LSIT Systems <lsitops@lsit.ucsb.edu>
 USER root
 
 RUN apt-get update && \
-    apt-get install -y texlive-full python3-dev libbz2-dev libxt-dev nano && \
+    apt-get install -y python3-dev libbz2-dev libxt-dev nano && \
     apt-get clean
 
 RUN pip install otter-grader \
@@ -13,7 +13,8 @@ RUN pip install otter-grader \
     scipy \
     scikit-learn \
     matplotlib \
-    Scrapy
+    Scrapy \
+    jupyterlab-latex
 
 RUN mamba install -c conda-forge jupyterlab_rise altair
 
