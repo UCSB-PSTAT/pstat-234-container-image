@@ -17,6 +17,11 @@ pipeline {
                         echo "NODE_NAME = ${env.NODE_NAME}"
                         sh 'podman build -t localhost/$IMAGE_NAME --pull --force-rm --no-cache .'
                      }
+                    post {
+                        unsuccessful {
+                            sh 'podman rmi -i localhost/$IMAGE_NAME || true'
+                        }
+                    }
                 }
                 stage('Test') {
                     steps {
@@ -31,6 +36,9 @@ pipeline {
                         always {
                             sh 'podman rm -ifv $IMAGE_NAME'
                         }
+                        unsuccessful {
+                            sh 'podman rmi -i localhost/$IMAGE_NAME || true'
+                        }
                     }
                 }
                 stage('Deploy') {
@@ -44,19 +52,24 @@ pipeline {
                     }
                     post {
                         always {
-                            sh 'podman rmi -i $IMAGE_NAME || true'
+                            sh 'podman rmi -i localhost/$IMAGE_NAME || true'
                         }
                     }
                 }                
+            }
+            post {
+                always {
+                    sh 'podman rmi -i localhost/$IMAGE_NAME || true'
+                }
             }
         }
     }
     post {
         success {
-            slackSend(channel: '#infrastructure-build', username: 'jenkins', message: "Build ${env.JOB_NAME} ${env.BUILD_NUMBER} just finished successfull! (<${env.BUILD_URL}|Details>)")
+            slackSend(channel: '#infrastructure-build', username: 'jenkins', color: 'good', message: "Build ${env.JOB_NAME} ${env.BUILD_NUMBER} just finished successfull! (<${env.BUILD_URL}|Details>)")
         }
         failure {
-            slackSend(channel: '#infrastructure-build', username: 'jenkins', message: "Uh Oh! Build ${env.JOB_NAME} ${env.BUILD_NUMBER} had a failure! (<${env.BUILD_URL}|Find out why>).")
+            slackSend(channel: '#infrastructure-build', username: 'jenkins', color: 'danger', message: "Uh Oh! Build ${env.JOB_NAME} ${env.BUILD_NUMBER} had a failure! (<${env.BUILD_URL}|Find out why>).")
         }
     }
 }
