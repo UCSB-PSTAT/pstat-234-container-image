@@ -13,8 +13,7 @@ RUN pip install otter-grader \
     scipy \
     scikit-learn \
     matplotlib \
-    Scrapy \
-    jupyterlab-latex
+    Scrapy 
 
 RUN mamba install -c conda-forge jupyterlab_rise altair
 
