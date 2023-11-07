@@ -13,7 +13,9 @@ RUN pip install otter-grader \
     scipy \
     scikit-learn \
     matplotlib \
-    Scrapy 
+    Scrapy \
+    cvxpy \
+    statsmodels
 
 RUN mamba install -c conda-forge jupyterlab_rise altair
 
