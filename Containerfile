@@ -16,7 +16,10 @@ RUN pip install otter-grader \
     cvxpy \
     statsmodels \
     umap-learn \
-    yfinance
+    yfinance \
+    pyarrow \
+    geopandas \
+    folium
     
 RUN mamba install -c conda-forge jupyterlab_rise altair
 
