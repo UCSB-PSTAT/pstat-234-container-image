@@ -1,4 +1,4 @@
-FROM ucsb/jupyter-base:latest
+FROM ucsb/base-rstudio:latest
 
 MAINTAINER LSIT Systems <lsitops@lsit.ucsb.edu>
 
